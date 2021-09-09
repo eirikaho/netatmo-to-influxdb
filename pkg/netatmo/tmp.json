@@ -1,0 +1,84 @@
+{
+  "body": {
+    "devices": [
+      {
+        "_id": "70:ee:50:52:e9:f6",
+        "station_name": "tobias (Indoor)",
+        "date_setup": 1593968651,
+        "last_setup": 1593968651,
+        "type": "NAMain",
+        "last_status_store": 1622639240,
+        "module_name": "Indoor",
+        "firmware": 181,
+        "wifi_status": 60,
+        "reachable": true,
+        "co2_calibrating": false,
+        "data_type": ["Temperature", "CO2", "Humidity", "Noise", "Pressure"],
+        "place": {
+          "altitude": 250,
+          "country": "NO",
+          "timezone": "Europe/Oslo",
+          "location": [10.329755783081055, 59.82780075073242]
+        },
+        "home_id": "5f02083b7a579bcc54bee02d",
+        "home_name": "tobias",
+        "dashboard_data": {
+          "time_utc": 1622639238,
+          "Temperature": 27.5,
+          "CO2": 457,
+          "Humidity": 35,
+          "Noise": 43,
+          "Pressure": 1029.9,
+          "AbsolutePressure": 999.8,
+          "min_temp": 22.8,
+          "max_temp": 27.5,
+          "date_max_temp": 1622638936,
+          "date_min_temp": 1622602948,
+          "temp_trend": "stable",
+          "pressure_trend": "stable"
+        },
+        "modules": [
+          {
+            "_id": "02:00:00:53:33:f6",
+            "type": "NAModule1",
+            "module_name": "Outdoor (entrance)",
+            "last_setup": 1593968666,
+            "data_type": ["Temperature", "Humidity"],
+            "battery_percent": 76,
+            "reachable": true,
+            "firmware": 50,
+            "last_message": 1622639236,
+            "last_seen": 1622639224,
+            "rf_status": 73,
+            "battery_vp": 5574,
+            "dashboard_data": {
+              "time_utc": 1622639224,
+              "Temperature": 21.7,
+              "Humidity": 42,
+              "min_temp": 9.8,
+              "max_temp": 21.7,
+              "date_max_temp": 1622639224,
+              "date_min_temp": 1622602002,
+              "temp_trend": "up"
+            }
+          }
+        ]
+      }
+    ],
+    "user": {
+      "mail": "eirikaho@outlook.com",
+      "administrative": {
+        "lang": "en",
+        "reg_locale": "en-US",
+        "country": "US",
+        "unit": 0,
+        "windunit": 2,
+        "pressureunit": 2,
+        "feel_like_algo": 1
+      }
+    }
+  },
+  "status": "ok",
+  "time_exec": 0.2779529094696045,
+  "time_server": 1622639819
+}

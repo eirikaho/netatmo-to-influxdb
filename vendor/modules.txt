@@ -1,0 +1,22 @@
+# github.com/influxdata/influxdb1-client v0.0.0-20200827194710-b269163b24ab
+## explicit
+github.com/influxdata/influxdb1-client
+github.com/influxdata/influxdb1-client/models
+github.com/influxdata/influxdb1-client/pkg/escape
+github.com/influxdata/influxdb1-client/v2
+# github.com/kr/pretty v0.1.0
+## explicit
+# github.com/sirupsen/logrus v1.8.1
+## explicit
+github.com/sirupsen/logrus
+# github.com/stretchr/testify v1.5.1
+## explicit
+# golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c
+## explicit
+golang.org/x/sys/internal/unsafeheader
+golang.org/x/sys/unix
+golang.org/x/sys/windows
+# gopkg.in/check.v1 v1.0.0-20180628173108-788fd7840127
+## explicit
+# gopkg.in/yaml.v2 v2.3.0
+## explicit

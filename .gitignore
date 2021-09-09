@@ -1,0 +1,4 @@
+/pkg/netatmo/client_private_test.go
+main_secret.go
+docker-compose.yaml
+.vscode
