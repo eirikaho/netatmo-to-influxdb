@@ -51,9 +51,8 @@ func persistDatapointsFromNetatmo() error {
 func getNetatmoClient() (*netatmo.Client, error) {
 	clientId := os.Getenv("NETATMO_CLIENT_ID")
 	clientSecret := os.Getenv("NETATMO_CLIENT_SECRET")
-	user := os.Getenv("NETATMO_USERNAME")
-	pass := os.Getenv("NETATMO_PASSWORD")
+	refreshToken := os.Getenv("NETATMO_REFRESH_TOKEN")
 
-	return netatmo.NewClient(clientId, clientSecret, user, pass)
+	return netatmo.NewClient(clientId, clientSecret, refreshToken)
 }
 

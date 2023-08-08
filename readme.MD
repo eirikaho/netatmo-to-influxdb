@@ -11,8 +11,7 @@ Requires a running instance of influxdb
 |INFLUXDB_PORT|8086
 |NETATMO_CLIENT_ID|
 |NETATMO_CLIENT_SECRET|
-|NETATMO_USERNAME|
-|NETATMO_PASSWORD|
+|NETATMO_REFRESH_TOKEN|
 |INTERVAL_SECONDS|600
 
 See [Netatmo Connect Docs](https://dev.netatmo.com/apidocumentation/oauth) for documentation regarding netatmo auth variables

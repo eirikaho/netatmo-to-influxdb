@@ -23,15 +23,13 @@ type Client struct {
 	Expires               time.Time
 }
 
-func NewClient(clientId, clientSecret, user, pass string) (*Client, error) {
+func NewClient(clientId, clientSecret, refreshToken string) (*Client, error) {
 	logrus.Info("Establishing connection to netatmo API ...")
 	d := url.Values{}
-	d.Set("grant_type", "password")
+	d.Set("grant_type", "refresh_token")
 	d.Set("client_id", clientId)
 	d.Set("client_secret", clientSecret)
-	d.Set("username", user)
-	d.Set("password", pass)
-	d.Set("scope", "read_station")
+	d.Set("refresh_token", refreshToken)
 	resp, err := postForm(reqAuth, d)
 	if err != nil {
 		return nil, err
