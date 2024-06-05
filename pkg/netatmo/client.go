@@ -2,6 +2,7 @@ package netatmo
 
 import (
 	"encoding/json"
+	"errors"
 	"net/http"
 	"net/url"
 	"strings"
@@ -15,12 +16,13 @@ const reqAuth = baseUrl + "oauth2/token"
 const reqStationData = baseUrl + "api/getstationsdata"
 
 type Client struct {
-	AccessToken           string `json:"access_token"`
-	RefreshToken          string `json:"refresh_token"`
-	TokenDuraionInSeconds int    `json:"expire_in"`
-	clientId              string
-	clientSecret          string
-	Expires               time.Time
+	AccessToken            string `json:"access_token"`
+	RefreshToken           string `json:"refresh_token"`
+	TokenDurationInSeconds int    `json:"expire_in"`
+	clientId               string
+	clientSecret           string
+	Expires                time.Time
+	Error                  string `json:"error"`
 }
 
 func NewClient(clientId, clientSecret, refreshToken string) (*Client, error) {
@@ -41,22 +43,29 @@ func NewClient(clientId, clientSecret, refreshToken string) (*Client, error) {
 	if err != nil {
 		return nil, err
 	}
+	if c.Error != "" {
+		return nil, errors.New(c.Error)
+	}
 
-	c.Expires = time.Now().Add(time.Second * time.Duration(c.TokenDuraionInSeconds))
+	c.Expires = time.Now().Add(time.Second * time.Duration(c.TokenDurationInSeconds))
 	c.clientId = clientId
 	c.clientSecret = clientSecret
 	logrus.Info("Connected!")
 	return &c, nil
 }
 
-func (c Client) GetToken() string {
+func (c *Client) EnsureValidToken() error {
 	if time.Now().After(c.Expires) {
-		c.RefreshAccessToken()
+		err := c.RefreshTokens()
+		if err != nil {
+			return err
+		}
 	}
-	return c.AccessToken
+
+	return nil
 }
 
-func (c Client) RefreshAccessToken() error {
+func (c *Client) RefreshTokens() error {
 	logrus.Info("Refreshing access token ...")
 	d := url.Values{}
 	d.Set("grant_type", "refresh_token")
@@ -74,18 +83,25 @@ func (c Client) RefreshAccessToken() error {
 	if err != nil {
 		return err
 	}
+	if cn.Error != "" {
+		return errors.New(cn.Error)
+	}
 
 	c.AccessToken = cn.AccessToken
 	c.RefreshToken = cn.RefreshToken
-	c.Expires = time.Now().Add(time.Second * time.Duration(c.TokenDuraionInSeconds))
+	c.Expires = time.Now().Add(time.Second * time.Duration(cn.TokenDurationInSeconds))
 	logrus.Info("Refresh OK")
 	return nil
 }
 
-func (c Client) GetStationData() (*DeviceListResponseBody, error) {
+func (c *Client) GetStationData() (*DeviceListResponseBody, error) {
 	logrus.Info("Getting station data ...")
 	d := url.Values{}
-	d.Set("access_token", c.GetToken())
+	err := c.EnsureValidToken()
+	if err != nil {
+		return nil, err
+	}
+	d.Set("access_token", c.AccessToken)
 	resp, err := postForm(reqStationData, d)
 	if err != nil {
 		return nil, err
