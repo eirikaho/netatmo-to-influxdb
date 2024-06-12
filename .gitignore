@@ -2,3 +2,5 @@
 main_secret.go
 docker-compose.yaml
 .vscode
+client_test.go
+.idea/
