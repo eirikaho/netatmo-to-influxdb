@@ -51,8 +51,18 @@ func persistDatapointsFromNetatmo() error {
 func getNetatmoClient() (*netatmo.Client, error) {
 	clientId := os.Getenv("NETATMO_CLIENT_ID")
 	clientSecret := os.Getenv("NETATMO_CLIENT_SECRET")
-	refreshToken := os.Getenv("NETATMO_REFRESH_TOKEN")
 
-	return netatmo.NewClient(clientId, clientSecret, refreshToken)
+	refreshToken, err := netatmo.ReadRefreshToken()
+	if err != nil {
+		return nil, err
+	}
+	if refreshToken == "" {
+		logrus.Info("No refresh token found on disk, using env var")
+		err = netatmo.WriteRefreshToken(refreshToken)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return netatmo.NewClient(clientId, clientSecret)
 }
-
